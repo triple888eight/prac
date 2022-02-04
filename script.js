@@ -1,18 +1,15 @@
 'use strict';
 
-let numberOfFilms;
-
 const personalMovieDB = {
-    count: numberOfFilms,
+    count: 0,
     movies: {},
     actors: {},
     genres: [],
-    privat: false,
+    privat: true,
     start: function() {
-        numberOfFilms = +prompt("Сколько фильмов вы смотрели?", "");
-        personalMovieDB.count = numberOfFilms;
-        while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
-            numberOfFilms = +prompt("Сколько фильмов вы смотрели?", "");
+        personalMovieDB.count = +prompt("Сколько фильмов вы смотрели?", "");
+        while (personalMovieDB.count == '' || personalMovieDB.count == null || isNaN(personalMovieDB.count)) {
+            personalMovieDB.count = +prompt("Сколько фильмов вы смотрели?", "");
         }
     },
     rememberMyFilms: function() {
@@ -37,7 +34,6 @@ const personalMovieDB = {
         } else {
             console.log('Произошла ошибка');
         }
-        console.log(numberOfFilms);
     },
     showMyDB: function() {
         if (personalMovieDB.privat == false) {
@@ -51,17 +47,20 @@ const personalMovieDB = {
             q = prompt(`Ваш любимый жанр под номером ${i+1}`, '');
             if (q == null || q == ''){
                 i--;
+            } else {
+                personalMovieDB.genres[i] = q;
             }
-            personalMovieDB.genres[i] = q;
         }
-        personalMovieDB.genres.forEach(function(item, i, genres) {
+        personalMovieDB.genres.forEach((item, i) => {
             console.log(`Любимый жанр номер ${i + 1} - это ${item}`);
         });
-    },
+    },  
     toggleVisibleMyDB: function() {
-        personalMovieDB.privat = (personalMovieDB.privat == false) ? true : 
-            (personalMovieDB.privat == true) ? false : true ;
-        console.log(personalMovieDB.privat);
+        if (personalMovieDB.privat) {
+            personalMovieDB.privat = false;
+        } else {
+            personalMovieDB.privat = true;
+        }
     }
 };
 
